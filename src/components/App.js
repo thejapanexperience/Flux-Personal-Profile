@@ -2,19 +2,30 @@ import React from 'react';
 import NameForm from './NameForm';
 import NameList from './NameList';
 
+import NameActions from '../actions/NameActions'
+import NameStore from '../stores/NameStore'
+
 const App = React.createClass({
   getInitialState() {
     return {
-      names: []
+      names: NameStore.getAll()
     }
   },
 
-  addName(newName) {
-    const { names } = this.state;
+  componentWillMount() {
+    NameStore.startListening(this._onChange);
+  },
 
-    this.setState({
-      names: [...names, newName]
-    })
+  componentWillUnmount() {
+    NameStore.stopListening(this._onChange);
+  },
+
+  _onChange() {
+    this.setState({ names: NameStore.getAll() })
+  },
+
+  addName(newName) { 
+    NameActions.createName(newName);
   },
 
   render() {
@@ -24,7 +35,7 @@ const App = React.createClass({
       <div className='container'>
         <h1>Simple Name List</h1>
         <NameForm addName={this.addName} />
-        <NameList names={names} />
+        <NameList names={names} /> 
       </div>
     )
   }
