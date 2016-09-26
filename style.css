@@ -1,0 +1,40 @@
+#profileInfo {
+  font-size: 600%;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#likesInfo {
+  font-size: 600%;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+#title {
+  font-size: 1500%;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#likes {
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  vertical-align: middle;
+
+
+}
+
+#profile {
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#header {
+  color: white;
+  background-color: black;
+}

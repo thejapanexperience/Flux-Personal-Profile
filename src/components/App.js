@@ -1,42 +1,73 @@
 import React from 'react';
-import NameForm from './NameForm';
-import NameList from './NameList';
+import ProfileForm from './ProfileForm';
+import ProfileList from './ProfileList';
+import LikesList from './LikesList';
+import ProfileImage from './ProfileImage';
+import LikesImage from './LikesImage';
+import LikesForm from './LikesForm';
 
-import NameActions from '../actions/NameActions'
-import NameStore from '../stores/NameStore'
+import ProfileActions from '../actions/ProfileActions'
+import LikesActions from '../actions/LikesActions'
+import ProfileStore from '../stores/ProfileStore'
+import LikesStore from '../stores/LikesStore'
 
 const App = React.createClass({
   getInitialState() {
     return {
-      names: NameStore.getAll()
+      profiles: ProfileStore.getAll(),
+      likes: LikesStore.getAll()
     }
   },
 
   componentWillMount() {
-    NameStore.startListening(this._onChange);
+    ProfileStore.startListening(this._onChange);
+    LikesStore.startListening(this._onChange);
   },
 
   componentWillUnmount() {
-    NameStore.stopListening(this._onChange);
+    ProfileStore.stopListening(this._onChange);
+    LikesStore.stopListening(this._onChange);
   },
 
   _onChange() {
-    this.setState({ names: NameStore.getAll() })
+    this.setState({ profiles: ProfileStore.getAll(), likes: LikesStore.getAll() })
   },
 
-  addName(newName) { 
-    NameActions.createName(newName);
+  addProfile(newProfile) { 
+    ProfileActions.createProfile(newProfile);
+  },
+
+  addLikes(newLikes) { 
+    LikesActions.createLikes(newLikes);
   },
 
   render() {
-    const { names } = this.state;
+    let { profiles, likes } = this.state;
 
     return (
       <div className='container'>
-        <h1>Simple Name List</h1>
-        <NameForm addName={this.addName} />
-        <NameList names={names} /> 
-      </div>
+      <div id="header" className="header">
+        <h1 id="title" >My Profile</h1>
+        <br/><br/></div>
+        <h3 id="profile">Input Profile Info Below</h3>
+
+        <ProfileForm addProfile={this.addProfile}/>       
+        <hr/>
+        <hr/>
+        <div className="container">
+        <div id="toprow" className="row">
+        <ProfileImage profiles={profiles} /> 
+        <ProfileList profiles={profiles} /> </div></div>
+        <br/>
+        <br/>
+        <div className="container">
+        <div id="bottomrow" className="row">
+        <LikesList likes={likes} />
+        <LikesImage likes={likes} /> 
+        </div></div>
+        <h3 id="likes">Input Likes Below</h3>
+        <LikesForm addLikes={this.addLikes} />
+        </div>
     )
   }
 })

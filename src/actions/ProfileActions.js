@@ -6,17 +6,19 @@ import AppDispatcher from '../AppDispatcher'
       type: 'CREATE_NAME',
       payload: { name: name }
     })
+
   }
 }*/
 
-const NameActions = {
+const ProfileActions = {
 
-  createName(name) {
+  createProfile(profile) {
     AppDispatcher.dispatch({
-      type: 'CREATE_NAME',
-      payload: { name: name }
+      type: 'CREATE_PROFILE',
+      payload: { profile: profile }
     })
-  } 
+  },
+
 }
 
-export default NameActions;
+export default ProfileActions;
